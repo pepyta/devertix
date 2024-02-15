@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import { trpc } from "@/trpc/client";
 import type { AppProps } from "next/app";
 
