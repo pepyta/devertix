@@ -4,8 +4,6 @@ import { Fragment } from "react";
 const HomePage = () => {
     const { data } = trpc.question.list.useQuery();
 
-    console.log(data);
-
     return (
         <Fragment />
     );
