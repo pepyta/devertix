@@ -5,7 +5,7 @@ test("Complete the quiz", async ({ page }) => {
 
     await page.getByTestId("start-game-button").click();
 
-    const NUMBER_OF_QUESTIONS = 5;
+    const NUMBER_OF_QUESTIONS = 10;
     for(let i = 0; i < NUMBER_OF_QUESTIONS; i++) {
         await page.getByTestId("answer-true-button").click();
     }

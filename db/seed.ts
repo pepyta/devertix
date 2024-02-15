@@ -44,18 +44,51 @@ const main = async () => {
             {
                 name: "Luxemburg's capital is Luxembourg.",
                 answer: true,
-                categoryId: categories[1].id,   
+                categoryId: categories[1].id,
             },
             {
                 name: "Cream cheese and cheese cream are the same.",
                 answer: false,
-                categoryId: categories[2].id,   
+                categoryId: categories[2].id,
             },
             {
                 name: "Omlette and scrambled egg is the same thing.",
                 answer: false,
-                categoryId: categories[2].id,   
+                categoryId: categories[2].id,
             },
+            {
+                name: "Caesar Salad originates from Italy.",
+                answer: false,
+                categoryId: categories[2].id,
+            },
+            {
+                name: "Pizza was the first food consumed in space.",
+                answer: false,
+                categoryId: categories[2].id,
+
+            },
+            {
+                name: "The Atlantic Ocean is the biggest ocean on Earth.",
+                answer: false,
+                categoryId: categories[1].id,
+
+            },
+            {
+                name: "Mount Everest is the tallest mountain in the world.",
+                answer: false,
+                categoryId: categories[1].id,
+
+            },
+            {
+                name: "The two longest rivers in the world are the Mississippi and the Nile.",
+                answer: false,
+                categoryId: categories[1].id,
+            },
+            {
+                name: "Mcdonald's has the most restaurants by location in the United States.",
+                answer: false,
+                categoryId: categories[2].id,
+            }
         ]).returning().execute();
 
         return {
