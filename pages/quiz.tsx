@@ -25,7 +25,11 @@ const QuizScreen = () => {
         enabled: !!sessionId,
     });
 
-    const { data: questionsData } = trpc.question.list.useQuery();
+    const { data: questionsData } = trpc.question.list.useQuery({
+        sessionId,
+    }, {
+        enabled: !!sessionId,
+    });
 
     const questions = useMemo(
         () => questionsData
@@ -75,7 +79,7 @@ const QuizScreen = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Typography align={"center"}>
-                        {`${Object.keys(answers).length + 1} of ${questions?.length}`}
+                        {`${answers.length + 1} of ${questions.length}`}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>

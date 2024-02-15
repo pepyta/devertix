@@ -1,6 +1,6 @@
 import { procedure, router } from "@/trpc/server";
 import { dbMiddleware } from "../middleware/db.middleware";
-import { answers, sessions } from "@/db/schema";
+import { answers, sessionQuestions, sessions } from "@/db/schema";
 import { z } from "zod";
 import { eq, sql } from "drizzle-orm";
 
@@ -8,13 +8,31 @@ export const appRouter = router({
     session: router({
         create: procedure
             .use(dbMiddleware)
-            .mutation(async (opts) => (
-                await opts.ctx.db
-                    .insert(sessions)
-                    .values({})
-                    .returning()
-                    .execute()
-            )[0]),
+            .mutation(async (opts) => {
+                const session = (
+                    await opts.ctx.db
+                        .insert(sessions)
+                        .values({})
+                        .returning()
+                        .execute()
+                )[0];
+
+                const questions = await opts.ctx.db.query.questions.findMany({
+                    columns: {
+                        id: true,
+                    },
+                    orderBy: () => sql`RANDOM()`,
+                    limit: 10,
+                });
+
+                await opts.ctx.db.insert(sessionQuestions)
+                    .values(questions.map((question) => ({
+                        questionId: question.id,
+                        sessionId: session.id,
+                    })))
+
+                return session;
+            }),
     }),
 
     answer: router({
@@ -43,21 +61,27 @@ export const appRouter = router({
     question: router({
         list: procedure
             .use(dbMiddleware)
-            .query((opts) => opts.ctx.db.query.questions.findMany({
-                columns: {
-                    id: true,
-                    name: true,
-                },
-                with: {
-                    category: {
-                        columns: {
-                            name: true,
+            .input(z.object({
+                sessionId: z.string().uuid()
+            }))
+            .query(async (opts) => {
+                const sessionQuestions = await opts.ctx.db.query.sessionQuestions.findMany({
+                    with: {
+                        question: {
+                            with: {
+                                category: {
+                                    columns: {
+                                        name: true,
+                                    },
+                                },
+                            },
                         },
                     },
-                },
-                orderBy: () => sql`RANDOM()`,
-                limit: 10,
-            })),
+                    where: (fields) => eq(fields.sessionId, opts.input.sessionId),
+                });
+
+                return sessionQuestions.map((sessionQuestion) => sessionQuestion.question);
+            }),
     })
 });
 

@@ -17,6 +17,15 @@ export const sessions = pgTable("sessions", {
     id: uuid("id").defaultRandom().primaryKey(),
 });
 
+export const sessionQuestions = pgTable("session_questions", {
+    sessionId: uuid("session_id").references(() => sessions.id).notNull(),
+    questionId: uuid("question_id").references(() => questions.id).notNull(),
+}, (fields) => ({
+    pk: primaryKey({
+        columns: [fields.sessionId, fields.questionId],
+    }),
+}));
+
 export const answers = pgTable("answers", {
     sessionId: uuid("session_id").notNull(),
     questionId: uuid("question_id").notNull(),
@@ -24,6 +33,17 @@ export const answers = pgTable("answers", {
 }, (table) => ({
     pk: primaryKey({
         columns: [table.sessionId, table.questionId],
+    }),
+}));
+
+export const sessionQuestionRelations = relations(sessionQuestions, ({ one }) => ({
+    session: one(sessions, {
+        fields: [sessionQuestions.sessionId],
+        references: [sessions.id],
+    }),
+    question: one(questions, {
+        fields: [sessionQuestions.questionId],
+        references: [questions.id],
     }),
 }));
 

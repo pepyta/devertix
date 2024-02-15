@@ -16,6 +16,7 @@ const main = async () => {
     });
 
     await db.transaction(async (tx) => {
+        await tx.delete(schema.sessionQuestions);
         await tx.delete(schema.sessions);
         await tx.delete(schema.answers);
         await tx.delete(schema.questions);
