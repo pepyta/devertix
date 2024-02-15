@@ -55,6 +55,7 @@ export const appRouter = router({
                         },
                     },
                 },
+                orderBy: () => sql`RANDOM()`,
                 limit: 10,
             })),
     })
