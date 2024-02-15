@@ -1,7 +1,8 @@
 import { trpc } from "@/trpc/client";
-import { Button, Card, CircularProgress, Container, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { Button, Card, Container, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { DoneRounded as CorrectIcon, CloseRounded as IncorrectIcon } from "@mui/icons-material";
+import { LoadingScreen } from "@/components/LoadingScreen";
 
 const QuizScreen = () => {
     const router = useRouter();
@@ -15,9 +16,7 @@ const QuizScreen = () => {
 
     if (!answers) {
         return (
-            <div style={{ display: "flex", height: "100%", flex: 1, alignItems: "center", justifyContent: "center" }}>
-                <CircularProgress size={64} />
-            </div>
+            <LoadingScreen />
         );
     }
 

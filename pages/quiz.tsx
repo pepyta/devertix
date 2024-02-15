@@ -1,7 +1,8 @@
 import { trpc } from "@/trpc/client";
 import { useEffect, useMemo } from "react";
-import { Button, Card, CardContent, CircularProgress, Container, Grid, Typography } from "@mui/material";
+import { Button, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
+import { LoadingScreen } from "@/components/LoadingScreen";
 
 const filterDuplicates = <T,>(array: T[], equals: (a: T, b: T) => boolean): T[] => {
     const result: T[] = [];
@@ -51,9 +52,7 @@ const QuizScreen = () => {
 
     if (!questions || !answers || !currentQuestion) {
         return (
-            <div style={{ display: "flex", height: "100%", flex: 1, alignItems: "center", justifyContent: "center" }}>
-                <CircularProgress size={64} />
-            </div>
+            <LoadingScreen />
         );
     }
 
