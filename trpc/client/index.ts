@@ -14,5 +14,3 @@ export const trpc = createTRPCNext<AppRouter>({
         };
     },
 });
-
-console.log(trpc);

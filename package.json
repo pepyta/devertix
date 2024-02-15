@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "migrate": "bun run ./db/migrate.ts",
     "lint": "next lint"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "@trpc/server": "^10.45.1",
     "drizzle-orm": "^0.29.3",
     "next": "14.1.0",
+    "postgres": "^3.4.3",
     "react": "^18",
     "react-dom": "^18",
     "zod": "^3.22.4"
