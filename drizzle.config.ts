@@ -6,7 +6,7 @@ const { DATABASE_URL } = z.object({
 }).parse(process.env);
 
 export default {
-    schema: "./db/schema",
+    schema: "./db/schema.ts",
     out: "./db/migrations",
     driver: "pg",
     dbCredentials: {

@@ -32,6 +32,11 @@ const main = async () => {
 
         const questions = await tx.insert(schema.questions).values([
             {
+                name: "Unturned originally started as a Roblox game.",
+                answer: false,
+                categoryId: categories[0].id,
+            },
+            {
                 name: "Sony made the Xbox game console.",
                 answer: false,
                 categoryId: categories[0].id,

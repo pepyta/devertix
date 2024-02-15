@@ -8,6 +8,20 @@
       "when": 1708011926657,
       "tag": "0000_milky_mimic",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1708015087216,
+      "tag": "0001_amazing_shocker",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1708016871904,
+      "tag": "0002_heavy_wolfsbane",
+      "breakpoints": true
     }
   ]
 }
