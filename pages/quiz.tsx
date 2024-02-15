@@ -83,6 +83,7 @@ const QuizScreen = () => {
                         color={"error"}
                         fullWidth
                         variant={"contained"}
+                        data-testid={"answer-false-button"}
                         disabled={isCreatingAnswer}
                         onClick={() => createAnswer({
                             questionId: currentQuestion.id,
@@ -98,6 +99,7 @@ const QuizScreen = () => {
                         color={"success"}
                         fullWidth
                         variant={"contained"}
+                        data-testid={"answer-true-button"}
                         disabled={isCreatingAnswer}
                         onClick={() => createAnswer({
                             questionId: currentQuestion.id,

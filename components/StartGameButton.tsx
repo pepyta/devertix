@@ -18,6 +18,7 @@ export const StartGameButton = (props: StartGameButtonProps) => {
             variant={"contained"}
             disabled={isLoading}
             onClick={createSession}
+            data-testid={"start-game-button"}
             {...props}
         >
             Begin

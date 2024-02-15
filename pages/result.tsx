@@ -30,7 +30,7 @@ const QuizScreen = () => {
                     <Typography variant={"h5"} align={"center"}>
                         You scored
                     </Typography>
-                    <Typography variant={"h5"} align={"center"}>
+                    <Typography variant={"h5"} align={"center"} data-testid={"result-text"}>
                         {`${correctCount} / ${totalCount}`}
                     </Typography>
                 </Grid>
@@ -38,7 +38,7 @@ const QuizScreen = () => {
                     <Card>
                         <List>
                             {answers.map((answer) => (
-                                <ListItem>
+                                <ListItem data-testid={"result-question-list-item"}>
                                     <ListItemIcon>
                                         {answer.question.answer === answer.choice ? (
                                             <CorrectIcon />
@@ -56,6 +56,7 @@ const QuizScreen = () => {
                     <Button
                         variant={"contained"}
                         fullWidth
+                        data-testid={"play-again-button"}
                         onClick={() => router.push("/")}
                     >
                         Play again?
