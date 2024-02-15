@@ -1,12 +1,22 @@
 import { trpc } from "@/trpc/client";
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { Button, Card, CardContent, CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { z } from "zod";
+
+const filterDuplicates = <T,>(array: T[], equals: (a: T, b: T) => boolean): T[] => {
+    const result: T[] = [];
+    for (const item of array) {
+        if (result.every((el) => !equals(el, item))) {
+            result.push(item);
+        }
+    }
+    return result;
+};
 
 const QuizScreen = () => {
     const router = useRouter();
     const sessionId = router.query["session_id"] as string;
+    const { mutateAsync: createAnswer, isLoading: isCreatingAnswer } = trpc.answer.create.useMutation();
 
     const { data: answers } = trpc.answer.list.useQuery({
         sessionId,
@@ -14,9 +24,15 @@ const QuizScreen = () => {
         enabled: !!sessionId,
     });
 
-    const { data: questions } = trpc.question.list.useQuery();
+    const { data: questionsData } = trpc.question.list.useQuery();
 
-    const { mutateAsync: createAnswer, isLoading: isCreatingAnswer } = trpc.answer.create.useMutation();
+    const questions = useMemo(
+        () => questionsData
+            // The API might return the same item twice, this is why this extra filter is here
+            ? filterDuplicates(questionsData, (a, b) => a.id === b.id)
+            : undefined,
+        [questionsData],
+    );
 
     const currentQuestion = useMemo(
         () => questions?.find((question) => (answers ?? []).every((answer) => answer.questionId !== question.id)),
