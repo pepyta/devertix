@@ -7,8 +7,6 @@ on:
 jobs:
   test:
     name: Run Playwright tests
-    container:
-      image: mcr.microsoft.com/playwright:v1.41.2-jammy
     services:
       postgres:
         image: postgres
