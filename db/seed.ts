@@ -1,6 +1,6 @@
+import "dotenv/config";
+
 import { drizzle } from "drizzle-orm/postgres-js";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
-import path from "path";
 import postgres from "postgres";
 import { z } from "zod";
 import * as schema from "./schema";
